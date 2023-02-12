@@ -9,6 +9,7 @@ import InputForm from './src_coreComp/InputForm'
 import Touchable from './src_coreComp/Touchable'
 import Views from './src_coreComp/Views'
 import Lists from './src_coreComp/Lists'
+import Animateds from './src_coreComp/Animated'
 
 
 
@@ -18,7 +19,7 @@ export default class App extends Component {
   render() {
     return (
       <View>
-            <Lists/>
+            <Animateds/>
       </View>
     )
   }

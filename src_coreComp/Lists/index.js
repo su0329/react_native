@@ -6,7 +6,8 @@ import {
   SafeAreaView,
   SectionList,
   StatusBar,
-  Alert
+  Alert,
+  FlatList
 } from 'react-native'
 
 const DATA = [
@@ -28,6 +29,21 @@ const DATA = [
   },
 ]
 
+const DATA2= [
+  {
+    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+    title: 'First Item',
+  },
+  {
+    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+    title: 'Second Item',
+  },
+  {
+    id: '58694a0f-3da1-471f-bd96-145571e29d72',
+    title: 'Third Item',
+  },
+]
+
 export default class Lists extends Component {
 
   state={
@@ -46,7 +62,7 @@ export default class Lists extends Component {
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        <SectionList
+       {/*<SectionList
           sections={DATA}
           keyExtractor={(item, index) => item + index}
           renderItem={({item}) => (
@@ -64,10 +80,56 @@ export default class Lists extends Component {
             return <Text style={{fontSize: 30}}> Nothing here !</Text>
           }}
 
+          
           refreshing={this.state.isFresh}
           onRefresh={this.loadingData}
-          
+
+        
+          onEndReachedThreshold={0.1}
+          onEndReached={()=>{
+            alert("keep loading data")
+          }} 
+        
+
+          ListHeaderComponent={()=>{
+            return <Text style={{fontSize: 50}}>List title</Text>}}
+        /> 
+
+        */ }
+
+        <FlatList
+        data={DATA2}
+        keyExtractor={item => item.id}
+        renderItem={({item}) => (
+          <View style={styles.item}>
+            <Text style={styles.title}>{item.title}</Text>
+          </View>
+        )}
+        ItemSeparatorComponent = {() => {
+          return <View style={{borderBottomWidth: 1,borderBottomColor: 'red'}}></View>
+        }}
+        ListEmptyComponent = { () => {
+          return <Text style={{fontSize: 30}}> Nothing here !</Text>
+        }}
+
+        refreshing={this.state.isFresh}
+        onRefresh={this.loadingData}
+
+        onEndReachedThreshold={0.1}
+        onEndReached={()=>{
+          alert("keep loading data")
+        }}
+
+        initialScrollIndex={2}
+        // lazy loading data
+        initialNumToRender={4}
+
+       
+
+        
         />
+        
+
       </SafeAreaView>
     );
   }
@@ -82,6 +144,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f9c2ff',
     padding: 20,
     marginVertical: 8,
+    marginHorizontal: 16,
   },
   header: {
     fontSize: 32,
